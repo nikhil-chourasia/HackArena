@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: #356C2D;
+    width: calc(100% - 64px);
+    margin: 16px 32px;
+    margin-top: 32;
+    border-radius: 8px;
+    position: sticky;
+    top: 16px;
+    left: 0;
+    box-shadow: 1.6px 3.2px 3.2px hsl(0deg 0% 0% / 0.45);
+    height: 60px;
+}
+
+.logo {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 2px 16px;
+    letter-spacing: 2px;
+    width: 360px;   /* Temporary width for logo fix later for responsive design*/
+}
+
+.logo:hover {
+    color: black;
+    transition: all 0.3s ease-in-out;
+}
+
+.event-slider {
+    width: calc(100%/4);
+    background-color: rgba(9, 10, 5, 1);
+    height: calc(100% - 8px);
+    margin: 4px;
+    border-radius: 8px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    margin: 10px 16px;
+    float: right;
+    border: 2px dashed #fff;
+}
+
+.nav-options ul li {
+    font-family: "JetBrains Mono", monospace;
+    font-family: "Inter", sans-serif;
+    opacity: 0.75;
+    color: #fff;
+    transition: all 0.1s ease-in-out;
+}
+
+.nav-options ul li:hover {
+    opacity: 1;
+    color: white;
+    transform: scale(1.05);
+    text-decoration: underline;
+}
+
+.event-slider ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.active-event-slider {
+    font-family: "Inter", sans-serif;
+    background-color: #70c278;
+    color: black;
+    transition: all 0.1s ease-in-out;
+    height: 36px;
+    width: 120px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-weight: 600;
+    transition: all 5s ease-in-out   ;
+}
+
+.event-slider ul li {
+    font-family: "Inter", sans-serif;
+    opacity: 0.8;
+    transition: all 0.1s ease-in-out;
+    height: 36px;
+    width: 120px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    user-select: none;
+}
