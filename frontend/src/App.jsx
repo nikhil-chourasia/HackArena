@@ -12,9 +12,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Authentication />} />
+        <Route path="/" element={<Home />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/host" element={<HackathonHost />} />
         <Route path="/hackathons" element={<Hackathons />} />
         <Route path="/competitions" element={<Competitions />} />
