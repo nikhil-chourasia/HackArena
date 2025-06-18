@@ -9,6 +9,8 @@ import Competitions from "./components/pages/Competitions.jsx";
 import Conferences from "./components/pages/Conferences.jsx";
 import Dashbord from "./components/pages/Dashbord.jsx";
 import UserProfile from "./components/User/UserProfile.jsx";
+import RepoExplorer from "./components/pages/RepoExplorer.jsx";
+import CodeEditor from "./components/pages/CodeEditor.jsx";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path="/hackathons" element={<Hackathons />} />
         <Route path="/competitions" element={<Competitions />} />
         <Route path="/conferences" element={<Conferences />} />
+        <Route path="/code" element={<CodeEditor />} />
+        <Route path="/explorer" element={<RepoExplorer />} />
       </Routes>
     </>
   );
