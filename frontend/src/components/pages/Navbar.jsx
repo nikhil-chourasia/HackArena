@@ -4,6 +4,7 @@ import avatar from "../../assets/avatar-placeholder.png";
 
 function Navbar() {
   const location = useLocation();
+  const githubUser = JSON.parse(localStorage.getItem("githubUser"));
 
   const isActive = (path) => location.pathname === path ? "active-event-slider text-black opacity-100" : "";
   const isActiveLink = (path) => location.pathname === path ? "active-link text-black opacity-100" : "text-white opacity-90";
@@ -38,7 +39,7 @@ function Navbar() {
       </ul>
       <div className="avatar flex items-center">
         <Link to="/profile" className="nav-link">
-          <img src={avatar} alt="Avatar" className="rounded-full w-[48px]" />
+          <img src={githubUser.avatarUrl} alt="Avatar" className="rounded-full w-[48px]" />
         </Link>
       </div>
     </div>

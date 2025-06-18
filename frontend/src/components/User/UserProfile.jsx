@@ -1,11 +1,9 @@
-// filepath: e:\hackArena\frontend\src\components\User\UserProfile.jsx
-import React from "react";
 
 function UserProfile() {
   const githubUser = JSON.parse(localStorage.getItem("githubUser"));
 
   if (!githubUser) {
-    return <div>Please log in to view your profile.</div>;
+    return <div className="text-white"> Please log in to view your profile.</div>;
   }
 
   return (

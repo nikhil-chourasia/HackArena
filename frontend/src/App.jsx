@@ -8,6 +8,7 @@ import Hackathons from "./components/pages/Hackathons.jsx";
 import Competitions from "./components/pages/Competitions.jsx"; 
 import Conferences from "./components/pages/Conferences.jsx";
 import Dashbord from "./components/pages/Dashbord.jsx";
+import UserProfile from "./components/User/UserProfile.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/authentication" element={<Authentication />} />
         <Route path="/dashbord" element={<Dashbord />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/host" element={<HackathonHost />} />
         <Route path="/hackathons" element={<Hackathons />} />
         <Route path="/competitions" element={<Competitions />} />
