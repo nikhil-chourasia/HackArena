@@ -8,7 +8,7 @@ function AuthCallback() {
   useEffect(() => {
     const githubUser = localStorage.getItem("githubUser");
     if (githubUser) {
-      navigate("/dashbord");
+      navigate("/dashboard");
     } else {
       const code = new URLSearchParams(window.location.search).get("code");
       if (code) {
@@ -17,7 +17,7 @@ function AuthCallback() {
           .then((res) => {
             if (res.data.user) {
               localStorage.setItem("githubUser", JSON.stringify(res.data.user));
-              navigate("/dashbord");
+              navigate("/dashboard");
             } else {
               navigate("/");
             }

@@ -1,6 +1,6 @@
 import Navbar from "./Navbar"
 
-function Dashbord() {
+function Dashboard() {
   return (
     <>
       <Navbar />
@@ -9,4 +9,4 @@ function Dashbord() {
   );
 }
 
-export default Dashbord
+export default Dashboard
