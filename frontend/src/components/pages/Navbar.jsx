@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import avatar from "../../assets/avatar-placeholder.png";
+=======
+import { Link } from "react-router-dom";
+>>>>>>> 3622500e0704cd5fff341d65540f6514f92c29ac
 
 
 function Navbar() {

@@ -1,0 +1,2 @@
+# .env files should never be committed to version control
+.env
