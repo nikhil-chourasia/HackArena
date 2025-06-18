@@ -4,7 +4,7 @@ function Dashbord() {
   return (
     <>
       <Navbar />
-      <h1>This is Dashbord</h1>
+      <h1 className="text-white">This is Dashbord</h1>
     </>
   );
 }
