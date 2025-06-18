@@ -1,0 +1,95 @@
+.content-container-1 {
+    width: 50%;
+    height: 100%;
+    text-align: left;
+    padding: 2rem;
+}
+
+.site-greeting {
+    font-family: "Inter", sans-serif;
+}
+
+.landing-page-buttons-1 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.site-name {
+    color: #70c278;
+    font-family: "JetBrains Mono", monospace;
+}
+
+.github-btn {
+    border: 1px solid gray;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    width: 220px;
+    height: 64px;
+    font: 16px "Inter", sans-serif;
+    margin: 1rem 0;
+}
+
+.github-btn img {
+    width: 32px;
+    height: 32px;
+    filter: invert();
+}
+
+.github-btn:hover {
+    background-color: #1a1d21;
+    color: white;
+}
+
+.explore-btn {
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    width: 300px;
+    height: 64px;
+    font: 16px "Inter", sans-serif;
+    margin: 1rem 0;
+    color: black;
+    background-color: #70c278;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.explore-btn img {
+    width: 32px;
+    height: 32px;
+}
+
+.explore-btn:hover {
+    background-color: #356c2d;
+    color: white;
+}
+
+.content-container-2 {
+    position: relative;
+    width: 40%;
+    height: 100%;
+}
+
+.code-editor-preview {
+    width: 640px;
+    margin: 128px;
+    position: absolute;
+    z-index: 100;
+}
+
+.blob{
+    position: absolute;
+    top: 200px;
+    left: 160px;
+    width: 640px;
+}

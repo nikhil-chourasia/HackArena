@@ -13,6 +13,7 @@ nav {
     left: 0;
     box-shadow: 1.6px 3.2px 3.2px hsl(0deg 0% 0% / 0.45);
     height: 60px;
+    z-index: 1000;
 }
 
 .logo {
@@ -52,6 +53,7 @@ nav {
     font-family: "Inter", sans-serif;
     opacity: 0.75;
     color: #fff;
+    letter-spacing: 1px;
     transition: all 0.1s ease-in-out;
 }
 
@@ -81,6 +83,7 @@ nav {
     border-radius: 4px;
     padding: 2px 8px;
     font-weight: 600;
+    transform: scale(1.05);
     transition: all 5s ease-in-out   ;
 }
 
@@ -94,4 +97,5 @@ nav {
     margin-bottom: 16px;
     border-radius: 4px;
     user-select: none;
+    border-bottom: #70c278 2px solid;
 }
