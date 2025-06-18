@@ -1,12 +1,9 @@
-import React from "react";
+
 import "./Home.css"
 import codeEditorPreview from "../../assets/undraw_dev-environment_n5by.svg";
 import github from "../../assets/github.png";
 import blob from "../../assets/Blob (3).svg";
 import rightArrow from "../../assets/right-arrow.png";
-import Folder from "../landingPageComponents/Folder";
-import Authentication from "../Authentication/Authentication";
-
 function Home() {
   return (
     <div className="home-wrapper">

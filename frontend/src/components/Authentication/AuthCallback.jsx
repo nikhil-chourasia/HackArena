@@ -6,23 +6,28 @@ function AuthCallback() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const code = new URLSearchParams(window.location.search).get("code");
-    if (code) {
-      axios
-        .get(`http://localhost:3001/auth/github/token?code=${code}`)
-        .then((res) => {
-          if (res.data.user) {
-            localStorage.setItem("githubUser", JSON.stringify(res.data.user));
-            navigate("/home");
-          } else {
-            navigate("/");
-          }
-        })
-        .catch(() => {
-          navigate("/");
-        });
+    const githubUser = localStorage.getItem("githubUser");
+    if (githubUser) {
+      navigate("/dashbord");
     } else {
-      navigate("/");
+      const code = new URLSearchParams(window.location.search).get("code");
+      if (code) {
+        axios
+          .get(`http://localhost:3001/auth/github/token?code=${code}`)
+          .then((res) => {
+            if (res.data.user) {
+              localStorage.setItem("githubUser", JSON.stringify(res.data.user));
+              navigate("/dashbord");
+            } else {
+              navigate("/");
+            }
+          })
+          .catch(() => {
+            navigate("/");
+          });
+      } else {
+        navigate("/");
+      }
     }
   }, [navigate]);
 
