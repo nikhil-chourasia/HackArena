@@ -5,6 +5,11 @@ import github from "../../assets/github.png";
 import blob from "../../assets/Blob (3).svg";
 import rightArrow from "../../assets/right-arrow.png";
 function Home() {
+
+  const handleLogin = () => {
+    window.location.href = "http://localhost:3001/auth/github";
+  }
+
   return (
     <div className="home-wrapper">
       <main className="flex items-center justify-center h-[80vh] w-full space-x-0">
@@ -22,15 +27,16 @@ function Home() {
             — all in one place.
           </p>
           <div className="landing-page-buttons-1 flex space-x-[16px]">
-            <button className="github-btn mr-4">
-              <a href="/Authentication" className="text-white">
-                <img
-                  src={github}
-                  alt=""
-                  className="w-5 h-5 inline-block mr-[16px]"
-                />
-                <span>Login with GitHub</span>
-              </a>
+            <button
+              className="github-btn text-white mr-4"
+              onClick={handleLogin}
+            >
+              <img
+                src={github}
+                alt=""
+                className="w-5 h-5 inline-block mr-[16px]"
+              />
+              <span>Login with GitHub</span>
             </button>
             <button className="explore-btn">
               <a href="/hackathons" className="">
