@@ -1,7 +1,7 @@
-const axios = require("axios");
+import axios from "axios";
 
 // Fetch GitHub user profile
-async function fetchGitHubProfile(username, accessToken) {
+export async function fetchGitHubProfile(username, accessToken) {
   const res = await axios.get(`https://api.github.com/users/${username}`, {
     headers: { Authorization: `token ${accessToken}` },
   });
@@ -9,7 +9,7 @@ async function fetchGitHubProfile(username, accessToken) {
 }
 
 // Fetch GitHub user repositories
-async function fetchGitHubRepos(username, accessToken) {
+export async function fetchGitHubRepos(username, accessToken) {
   const res = await axios.get(
     `https://api.github.com/users/${username}/repos?per_page=100`,
     {
@@ -20,7 +20,7 @@ async function fetchGitHubRepos(username, accessToken) {
 }
 
 // Fetch languages for a repo
-async function fetchRepoLanguages(owner, repo, accessToken) {
+export async function fetchRepoLanguages(owner, repo, accessToken) {
   const res = await axios.get(
     `https://api.github.com/repos/${owner}/${repo}/languages`,
     {
@@ -31,7 +31,7 @@ async function fetchRepoLanguages(owner, repo, accessToken) {
 }
 
 // Fetch contributors for a repo
-async function fetchRepoContributors(owner, repo, accessToken) {
+export async function fetchRepoContributors(owner, repo, accessToken) {
   const res = await axios.get(
     `https://api.github.com/repos/${owner}/${repo}/contributors`,
     {
@@ -40,10 +40,3 @@ async function fetchRepoContributors(owner, repo, accessToken) {
   );
   return res.data;
 }
-
-module.exports = {
-  fetchGitHubProfile,
-  fetchGitHubRepos,
-  fetchRepoLanguages,
-  fetchRepoContributors,
-};
