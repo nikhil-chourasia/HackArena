@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.explorer-container {
+  background-color: #0b0b0b;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-y: auto;
+  border: 1px solid #2c2c2c;
+  --webkit-scrollbar-width: 4px;
+    scrollbar-width: 2px;
+    --webkit-scrollbar-thumb-color: #555;
+    --webkit-scrollbar-track-color: #333;
+    scrollbar-color: #555 #333;
+    scrollbar-width: thin;
+    /* Custom scrollbar styles */
+    &::-webkit-scrollbar {
+        
+        width: 4px;
+        height: 4px;
+    }   
+    &::-webkit-scrollbar-thumb {
+        background-color: #555;
+        border-radius: 4px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #333;
+    }
+
+}
+
+.explorer-heading {
+    font-family: "Inter", sans-serif;
+}
+
+/* Folder and file list */
+.explorer-list {
+  list-style: url("src/assets/drop_down.png");
+  padding-left: 0;
+  font-family: "Ubuntu Mono", monospace;
+}
+
+/* Each <li> (file or folder) */
+.explorer-items {
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+/* Folders (summary) */
+details summary {
+  cursor: pointer;
+  padding: 4px 10px;
+  background-color: #161616;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.2s;
+  list-style: url("src/assets/drop_down.png");
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Hover and open folder background */
+details summary:hover,
+details[open] summary {
+  background-color: #222;
+}
+
+/* Remove triangle */
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Add custom arrow */
+/* details summary::before {
+  content: "▶";
+  font-size: 10px;
+  margin-right: 6px;
+  transition: transform 0.2s ease;
+} */
+
+/* Rotate arrow when open */
+/* details[open] summary::before {
+  transform: rotate(90deg);
+} */
+
+/* Files */
+.explorer-items span {
+  color: #eeeeee;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 22px;
+  display: block;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.explorer-items span:hover {
+  background-color: #1c1c1c;
+  border-radius: 4px;
+}

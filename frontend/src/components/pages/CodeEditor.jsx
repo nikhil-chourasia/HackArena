@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { Octokit } from "@octokit/rest";
+import "./CodeEditor.css";
+import twilightTheme from "monaco-themes/themes/Twilight.json";
 
 function detectLanguage(filename) {
   const ext = filename.split('.').pop();
@@ -30,7 +32,8 @@ function detectLanguage(filename) {
   return extensionMap[ext] || "plaintext";
 }
 
-function CodeEditor() {
+function CodeEditor({ path }) {
+  console.log("Path imported in CodeEditor:", path);
   const [code, setCode] = useState("// Loading...");
   const [loading, setLoading] = useState(true);
   const [language, setLanguage] = useState("plaintext");
@@ -43,12 +46,10 @@ function CodeEditor() {
     const fetchCode = async () => {
       setLoading(true);
       try {
-        const filePath = "frontend/src/components/pages/Home.jsx";
-
         const res = await octokit.repos.getContent({
           owner: "nikhil-chourasia",
           repo: "HackArena",
-          path: filePath,
+          path: path,
           ref: "main",
         });
 
@@ -71,19 +72,25 @@ function CodeEditor() {
         setLanguage("plaintext");
         setLoading(false);
       }
-    };
+    }
+    if (path) fetchCode();
+  }, [path])
 
-    fetchCode();
-  }, []);
-
+  const handleEditorMount = (editor, monaco) => {
+    monaco.editor.defineTheme("twilight", twilightTheme);
+    monaco.editor.setTheme("twilight");
+  };
+  console.log("CodeEditor rendered with path:", path);
+  console.log("CodeEditor state - code:", code, "language:", language, "loading:", loading);
   return (
-    <div className="w-full h-[100vh] border-2 border-gray-500 rounded-lg overflow-hidden">
+    <div className="code-editor-container border-2 border-gray-500 rounded-lg overflow-hidden">
       <Editor
-        height="100%"
+        height="100vh"
         language={language}
         value={loading ? "// Loading..." : code}
-        theme="vs-dark"
-        options={{ readOnly: true }}
+        theme="twilight"
+        onMount={handleEditorMount}
+        options={{ readOnly: true, minimap: { enabled: false } }}
       />
     </div>
   );

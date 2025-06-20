@@ -1,10 +1,15 @@
 import express from "express";
 import cors from "cors";
-import axios from "axios";
 import dotenv from "dotenv";
 import session from "express-session";
-import { connectDB } from "./Database.js"; // Import the connectDB function
+import { connectDB } from "./Database.js";
 import user from "./models/user.js";
+import {
+  fetchGitHubProfile,
+  fetchGitHubRepos,
+  fetchRepoLanguages,
+  fetchRepoContributors,
+} from "./fetch.js";
 
 dotenv.config();
 
@@ -50,28 +55,31 @@ app.get("/auth/github/token", async (req, res) => {
       .json({ error: "Missing code parameter from GitHub OAuth callback." });
   }
   try {
-    const tokenRes = await axios.post(
+    const tokenRes = await fetch(
       "https://github.com/login/oauth/access_token",
       {
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        code,
-        redirect_uri: "http://localhost:5173/auth/callback",
-      },
-      {
-        headers: { Accept: "application/json" },
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          code,
+          redirect_uri: "http://localhost:5173/auth/callback",
+        }),
       }
     );
-    const access_token = tokenRes.data.access_token;
+    const tokenData = await tokenRes.json();
+    const access_token = tokenData.access_token;
     if (!access_token) {
       return res.status(401).json({
         error: "Bad credentials: Could not obtain access token from GitHub.",
       });
     }
-    const userRes = await axios.get("https://api.github.com/user", {
-      headers: { Authorization: `token ${access_token}` },
-    });
-    const githubUser = userRes.data;
+    // Fetch minimal user info( this will saved in mongoDB)
+    const githubUser = await fetchGitHubProfile("user", access_token);
     const userDoc = await user.findOneAndUpdate(
       { githubId: githubUser.id },
       {
@@ -79,27 +87,60 @@ app.get("/auth/github/token", async (req, res) => {
         username: githubUser.login,
         avatarUrl: githubUser.avatar_url,
         name: githubUser.name,
-        email: githubUser.email,
-        repos: [],
-        skills: [],
+        email: githubUser.email || null, // GitHub may not return email
       },
       { upsert: true, new: true }
     );
     req.session.user = userDoc; // Store user in session
-    console.log("User saved to MongoDB:", userDoc);
-    res.json({ user: userDoc }); // Return the saved user from MongoDB
+    res.json({ user: userDoc, access_token });
   } catch (err) {
-    if (
-      err.response &&
-      err.response.data &&
-      err.response.data.error === "bad_verification_code"
-    ) {
-      return res
-        .status(401)
-        .json({ error: "Bad credentials: Invalid or expired code." });
-    }
-    console.error("Token Error:", err.response?.data || err.message);
     res.status(500).json({ error: "GitHub OAuth failed" });
+  }
+});
+
+// Route to get real-time GitHub profile
+app.get("/api/github/profile/:username", async (req, res) => {
+  try {
+    const access_token = req.session.user
+      ? req.session.user.access_token
+      : null;
+    if (!access_token)
+      return res.status(401).json({ error: "Not authenticated" });
+    const profile = await fetchGitHubProfile(req.params.username, access_token);
+    res.json(profile);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch profile" });
+  }
+});
+
+// Route to get real-time GitHub repos
+app.get("/api/github/repos/:username", async (req, res) => {
+  try {
+    const access_token = req.session.user
+      ? req.session.user.access_token
+      : null;
+    if (!access_token)
+      return res.status(401).json({ error: "Not authenticated" });
+    const repos = await fetchGitHubRepos(req.params.username, access_token);
+    // Optionally, fetch languages and contributors for each repo
+    const detailedRepos = await Promise.all(
+      repos.map(async (repo) => {
+        const languages = await fetchRepoLanguages(
+          repo.owner.login,
+          repo.name,
+          access_token
+        );
+        const contributors = await fetchRepoContributors(
+          repo.owner.login,
+          repo.name,
+          access_token
+        );
+        return { ...repo, languages, contributors };
+      })
+    );
+    res.json(detailedRepos);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch repos" });
   }
 });
 

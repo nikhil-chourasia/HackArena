@@ -1,5 +1,11 @@
 import React, { Children } from "react";
 import { Octokit } from "@octokit/rest";
+import "./RepoExplorer.css";
+import folder from "../../assets/folder.png";
+import { getClassWithColor } from "file-icons-js";
+import "../../assets/icons/file-icons.css"; // adjust path as needed
+
+
 
 function buildTree(flatTree) {
     const root = {}
@@ -21,21 +27,29 @@ function buildTree(flatTree) {
     return root
 }
 
-function Tree({data}) {
+function Tree({data, onFileClick, currentPath = ''}) {
     return (
-        <ul className="ml-4">
+        <ul className="ml-4 exploerer-list">
             {Object.entries(data).map(([name, value]) => {
                 const isFolder = value.__type === 'tree'
+                const fullPath = currentPath ? `${currentPath}/${name}` : name
 
                 return(
-                    <li key={name} className="text-white">
+                    <li key={name} className="text-white explorer-items">
                         {isFolder ? (
                             <details>
-                                <summary>📁 {name}</summary>
-                                <Tree data={value.__children} />
+                                <summary><img src={folder} alt="" className="width-[14px]"/> {name}</summary>
+                                <Tree data={value.__children} onFileClick={onFileClick} currentPath={fullPath} />
                             </details>
                         ) : (
-                            <span>📄 {name}</span>
+                            <span
+                                onClick={() => onFileClick(fullPath)}
+                                className="file-entry cursor-pointer hover:text-green-400 flex items-center"
+                            >
+                                <i className={`mr-2 ${getClassWithColor(name)}`} />
+                                {name}
+                            </span>
+
                         )}
                     </li>
                 )
@@ -44,7 +58,7 @@ function Tree({data}) {
     )
 }
 
-function RepoExplorer() {
+function RepoExplorer({ onFileSelect }) {
     const [repoTree, setRepoTree] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
 
@@ -94,10 +108,10 @@ function RepoExplorer() {
     if (loading) return <div className="text-white">Loading File Structure...</div>
 
     return (
-        <div className="text-white">
-      <h2 className="text-lg font-semibold mb-2">Repository Structure</h2>
-      <Tree data={buildTree(repoTree)} />
-    </div>
+        <div className="text-white explorer-container">
+            <h2 className="text-lg font-semibold mb-2 explorer-heading">Repository Structure</h2>
+            <Tree data={buildTree(repoTree)} onFileClick={onFileSelect}/>
+        </div>
   )
 }
 
