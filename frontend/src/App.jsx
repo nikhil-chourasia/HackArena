@@ -5,6 +5,7 @@ import HackathonHost from "./components/pages/HackathonHost.jsx";
 import AuthCallback from "./components/Authentication/AuthCallback.jsx";
 import Hackathons from "./components/pages/Hackathons.jsx";
 import Competitions from "./components/pages/Competitions.jsx";
+import Competitions from "./components/pages/Competitions.jsx";
 import Conferences from "./components/pages/Conferences.jsx";
 import Dashboard from "./components/pages/Dashboard.jsx";
 import CodeWindow from "./components/pages/CodeWindow.jsx";

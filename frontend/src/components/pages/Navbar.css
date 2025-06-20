@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 nav {
@@ -23,14 +24,28 @@ nav {
   margin: 2px 16px;
   letter-spacing: 2px;
   width: 360px; /* Temporary width for logo fix later for responsive design*/
+  font-family: "JetBrains Mono", monospace;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 2px 16px;
+  letter-spacing: 2px;
+  width: 360px; /* Temporary width for logo fix later for responsive design*/
 }
 
 .logo:hover {
   color: black;
   transition: all 0.3s ease-in-out;
+  color: black;
+  transition: all 0.3s ease-in-out;
 }
 
 .event-slider {
+  width: calc(100% / 4);
+  background-color: rgba(9, 10, 5, 1);
+  height: calc(100% - 8px);
+  margin: 4px;
+  margin-top: 32px;
+  border-radius: 8px;
   width: calc(100% / 4);
   background-color: rgba(9, 10, 5, 1);
   height: calc(100% - 8px);
@@ -56,6 +71,12 @@ nav {
   color: #fff;
   letter-spacing: 1px;
   transition: all 0.1s ease-in-out;
+  font-family: "JetBrains Mono", monospace;
+  font-family: "Inter", sans-serif;
+  opacity: 0.75;
+  color: #fff;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
 }
 
 .nav-options ul li:hover {
@@ -63,9 +84,17 @@ nav {
   color: white;
   transform: scale(1.05);
   text-decoration: underline;
+  opacity: 1;
+  color: white;
+  transform: scale(1.05);
+  text-decoration: underline;
 }
 
 .event-slider ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -86,9 +115,32 @@ nav {
   font-weight: 600;
   transform: scale(1.05);
   transition: all 5s ease-in-out;
+  font-family: "Inter", sans-serif;
+  background-color: #70c278;
+  color: black;
+  transition: all 0.1s ease-in-out;
+  height: 36px;
+  width: 120px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-weight: 600;
+  transform: scale(1.05);
+  transition: all 5s ease-in-out;
 }
 
 .event-slider ul li {
+  font-family: "Inter", sans-serif;
+  opacity: 0.8;
+  transition: all 0.1s ease-in-out;
+  height: 36px;
+  width: 120px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  user-select: none;
+  border-bottom: #70c278 2px solid;
   font-family: "Inter", sans-serif;
   opacity: 0.8;
   transition: all 0.1s ease-in-out;
