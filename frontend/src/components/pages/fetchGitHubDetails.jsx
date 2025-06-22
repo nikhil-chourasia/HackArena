@@ -5,24 +5,26 @@ export async function fetchGitHubDetails(accessToken) {
   try {
     const { data: user } = await axios.get("https://api.github.com/user", {
       headers,
+      withCredentials: true,
     });
     const { data: followers } = await axios.get(user.followers_url, {
       headers,
+      withCredentials: true,
     });
     const { data: following } = await axios.get(
       `https://api.github.com/users/${user.login}/following`,
-      { headers }
+      { headers, withCredentials: true }
     );
     const { data: repos } = await axios.get(
       "https://api.github.com/user/repos?per_page=100",
-      { headers }
+      { headers, withCredentials: true }
     );
 
     const repoDetails = await Promise.all(
       repos.map(async (repo) => {
         const [languageRes, contributorsRes] = await Promise.all([
-          axios.get(repo.languages_url, { headers }),
-          axios.get(repo.contributors_url, { headers }),
+          axios.get(repo.languages_url, { headers, withCredentials: true }),
+          axios.get(repo.contributors_url, { headers, withCredentials: true }),
         ]);
         return {
           id: repo.id,

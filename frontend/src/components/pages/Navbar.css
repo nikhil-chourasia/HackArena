@@ -4,17 +4,17 @@
 }
 
 nav {
-    background-color: #356C2D;
-    width: calc(100% - 32px);
-    margin: 16px;
-    margin-top: 16px;
-    border-radius: 8px;
-    position: sticky;
-    top: 16px;
-    left: 0;
-    box-shadow: 1.6px 3.2px 3.2px hsl(0deg 0% 0% / 0.45);
-    height: 60px;
-    z-index: 1000;
+  background-color: #356c2d;
+  width: calc(100% - 32px);
+  margin: 16px;
+  margin-top: 16px;
+  border-radius: 8px;
+  position: sticky;
+  top: 16px;
+  left: 0;
+  box-shadow: 1.6px 3.2px 3.2px hsl(0deg 0% 0% / 0.45);
+  height: 60px;
+  z-index: 1000;
 }
 
 .logo {
@@ -55,13 +55,13 @@ nav {
 }
 
 .avatar {
-    width: 48px;
-    height: 48px;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    margin: 10px 16px;
-    float: right;
-    border: 2px dashed #fff;
+  width: 48px;
+  height: 48px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  margin: 10px 16px;
+  float: right;
+  border: 2px dashed #fff;
 }
 
 .nav-options ul li {
@@ -140,6 +140,7 @@ nav {
   margin-bottom: 16px;
   border-radius: 4px;
   user-select: none;
+  -webkit-user-select: none;
   border-bottom: #70c278 2px solid;
   font-family: "Inter", sans-serif;
   opacity: 0.8;
@@ -150,5 +151,6 @@ nav {
   margin-bottom: 16px;
   border-radius: 4px;
   user-select: none;
+  -webkit-user-select: none;
   border-bottom: #70c278 2px solid;
 }

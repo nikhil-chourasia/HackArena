@@ -1,13 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
-import UserProfile from "./userProfile";
 
 function Navbar() {
   const location = useLocation();
-  const isActive = (path) =>
-    location.pathname === path
-      ? "active-event-slider text-black opacity-100"
-      : "";
   const isActiveLink = (path) =>
     location.pathname === path
       ? "active-link text-black opacity-100"
@@ -54,10 +49,15 @@ function Navbar() {
               Conferences
             </Link>
           </li>
+          <li>
+            <a
+              href="http://localhost:3001/auth/github"
+              className="px-4 py-2 rounded-lg text-base transition-colors duration-200 text-white bg-green-700 hover:bg-green-800"
+            >
+              Login with GitHub
+            </a>
+          </li>
         </ul>
-      </div>
-      <div>
-        {/* <UserProfile /> */}
       </div>
     </nav>
   );

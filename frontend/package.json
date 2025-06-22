@@ -15,6 +15,7 @@
     "axios": "^1.10.0",
     "file-icons-js": "github:websemantics/file-icons-js",
     "monaco-themes": "^0.4.5",
+    "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2"

@@ -3,3 +3,25 @@
 /* body {
     cursor: url('/src/assets/Cursor.svg');
 } */
+
+@layer base {
+  html,
+  :host {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+/* Add fallback for scrollbars for Safari */
+/* For Safari, use -webkit-scrollbar pseudo-elements */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #333;
+}

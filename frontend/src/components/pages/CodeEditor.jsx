@@ -5,7 +5,7 @@ import "./CodeEditor.css";
 import twilightTheme from "monaco-themes/themes/Twilight.json";
 
 function detectLanguage(filename) {
-  const ext = filename.split('.').pop();
+  const ext = filename.split(".").pop();
 
   const extensionMap = {
     js: "javascript",
@@ -26,7 +26,7 @@ function detectLanguage(filename) {
     sh: "shell",
     yml: "yaml",
     yaml: "yaml",
-    txt: "plaintext"
+    txt: "plaintext",
   };
 
   return extensionMap[ext] || "plaintext";
@@ -39,10 +39,16 @@ function CodeEditor({ path }) {
   const [language, setLanguage] = useState("plaintext");
 
   const octokit = new Octokit({
-    auth: import.meta.env.VITE_GITHUB_TOKEN
+    auth: import.meta.env.VITE_GITHUB_TOKEN,
   });
 
   useEffect(() => {
+    if (!path) {
+      setCode("// No file selected.");
+      setLanguage("plaintext");
+      setLoading(false);
+      return;
+    }
     const fetchCode = async () => {
       setLoading(true);
       try {
@@ -72,16 +78,23 @@ function CodeEditor({ path }) {
         setLanguage("plaintext");
         setLoading(false);
       }
-    }
-    if (path) fetchCode();
-  }, [path])
+    };
+    fetchCode();
+  }, [path]);
 
   const handleEditorMount = (editor, monaco) => {
     monaco.editor.defineTheme("twilight", twilightTheme);
     monaco.editor.setTheme("twilight");
   };
   console.log("CodeEditor rendered with path:", path);
-  console.log("CodeEditor state - code:", code, "language:", language, "loading:", loading);
+  console.log(
+    "CodeEditor state - code:",
+    code,
+    "language:",
+    language,
+    "loading:",
+    loading
+  );
   return (
     <div className="code-editor-container border-2 border-gray-500 rounded-lg overflow-hidden">
       <Editor
