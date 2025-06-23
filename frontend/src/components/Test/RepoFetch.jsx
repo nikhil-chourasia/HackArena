@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-export default function DisplayRepos() {
-  const [username, setUsername] = useState("");
+export default function DisplayRepos({ onRepoClick }) {
   const [repos, setRepos] = useState([]);
   const [error, setError] = useState("");
 
@@ -10,7 +9,8 @@ export default function DisplayRepos() {
     setRepos([]);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/repos?username=${username}`
+        "http://localhost:3001/auth/github/repos", // Update to your backend endpoint
+        { credentials: "include" } // Important for session cookies
       );
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
@@ -24,19 +24,19 @@ export default function DisplayRepos() {
 
   return (
     <div>
-      <h2>GitHub User Repositories</h2>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Enter GitHub username"
-      />
-      <button onClick={fetchRepos}>Fetch Repos</button>
+      <h2>My GitHub Repositories</h2>
+      <button onClick={fetchRepos}>Fetch My Repos</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <ul>
         {repos.map((repo) => (
           <li key={repo.id}>
-            <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                onRepoClick && onRepoClick(repo);
+              }}
+            >
               {repo.name}
             </a>
           </li>

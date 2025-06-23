@@ -10,6 +10,7 @@ import TestUserProfile from "./components/Test/test.jsx";
 import DisplayRepos from "./components/Test/RepoFetch.jsx";
 import CodeWindow from "./components/pages/CodeWindow.jsx";
 import { AuthCallback } from "./components/callbacks/authCallback.jsx";
+import RepoBrowser from "./components/pages/RepoBrowser";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
       <Route path="/conferences" element={<Conferences />} />
       <Route path="/code" element={<CodeWindow />} />
       <Route path="/test" element={<TestUserProfile />} />
-      <Route path="/Repo" element={<DisplayRepos />} />
+      <Route path="/Repo" element={<RepoBrowser />} />
     </Routes>
   );
 }

@@ -6,7 +6,9 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
-  console.error("❌ Missing CLIENT_ID or CLIENT_SECRET in environment variables.");
+  console.error(
+    "❌ Missing CLIENT_ID or CLIENT_SECRET in environment variables."
+  );
 }
 
 // Returns the user session if authenticated
@@ -35,22 +37,27 @@ router.post("/callback", async (req, res) => {
   if (!code) return res.status(400).json({ error: "No code provided" });
 
   try {
-    const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        code,
-        redirect_uri: "http://localhost:5173/auth/callback",
-      }),
-    });
+    const tokenRes = await fetch(
+      "https://github.com/login/oauth/access_token",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          code,
+          redirect_uri: "http://localhost:5173/auth/callback",
+        }),
+      }
+    );
     const tokenData = await tokenRes.json();
     if (!tokenData.access_token)
-      return res.status(401).json({ error: "Token exchange failed", details: tokenData });
+      return res
+        .status(401)
+        .json({ error: "Token exchange failed", details: tokenData });
 
     // Fetch user info
     const userRes = await fetch("https://api.github.com/user", {
@@ -84,7 +91,35 @@ router.post("/callback", async (req, res) => {
     });
   } catch (err) {
     console.error("GitHub OAuth failed:", err);
-    res.status(500).json({ error: "GitHub OAuth failed", details: err.message });
+    res
+      .status(500)
+      .json({ error: "GitHub OAuth failed", details: err.message });
+  }
+});
+
+// Fetch all repos for the logged-in user
+router.get("/repos", async (req, res) => {
+  const accessToken = req.session?.accessToken;
+  if (!accessToken) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+  try {
+    const response = await fetch(
+      "https://api.github.com/user/repos?per_page=100",
+      {
+        headers: {
+          Authorization: `token ${accessToken}`,
+          Accept: "application/vnd.github+json",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.status}`);
+    }
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

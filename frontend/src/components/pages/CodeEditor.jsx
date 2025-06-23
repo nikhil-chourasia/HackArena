@@ -32,7 +32,7 @@ function detectLanguage(filename) {
   return extensionMap[ext] || "plaintext";
 }
 
-function CodeEditor({ path }) {
+function CodeEditor({ owner, repo, path }) {
   console.log("Path imported in CodeEditor:", path);
   const [code, setCode] = useState("// Loading...");
   const [loading, setLoading] = useState(true);
@@ -43,7 +43,7 @@ function CodeEditor({ path }) {
   });
 
   useEffect(() => {
-    if (!path) {
+    if (!owner || !repo || !path) {
       setCode("// No file selected.");
       setLanguage("plaintext");
       setLoading(false);
@@ -53,10 +53,9 @@ function CodeEditor({ path }) {
       setLoading(true);
       try {
         const res = await octokit.repos.getContent({
-          owner: "nikhil-chourasia",
-          repo: "HackArena",
-          path: path,
-          ref: "main",
+          owner,
+          repo,
+          path,
         });
 
         if (Array.isArray(res.data)) {
@@ -80,7 +79,7 @@ function CodeEditor({ path }) {
       }
     };
     fetchCode();
-  }, [path]);
+  }, [owner, repo, path]);
 
   const handleEditorMount = (editor, monaco) => {
     monaco.editor.defineTheme("twilight", twilightTheme);

@@ -62,34 +62,43 @@ function Tree({ data, onFileClick, currentPath = "" }) {
   );
 }
 
-function RepoExplorer({ onFileSelect }) {
+function RepoExplorer({ owner, repo, onFileSelect }) {
   const [repoTree, setRepoTree] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [contributors, setContributors] = React.useState([]);
+  const [languages, setLanguages] = React.useState([]);
 
   const octokit = new Octokit({
     auth: import.meta.env.VITE_GITHUB_TOKEN,
   });
 
   React.useEffect(() => {
-    const fetchRepoTree = async () => {
+    if (!owner || !repo) return;
+    const fetchRepoData = async () => {
       try {
-        const branchRes = await octokit.repos.get({
-          owner: "nikhil-chourasia",
-          repo: "HackArena",
-        });
+        const branchRes = await octokit.repos.get({ owner, repo });
         const branch = branchRes.data.default_branch;
+        // Fetch contributors
+        const contributorsRes = await octokit.repos.listContributors({
+          owner,
+          repo,
+        });
+        setContributors(contributorsRes.data);
+
+        // Fetch languages
+        const languagesRes = await octokit.repos.listLanguages({ owner, repo });
+        setLanguages(Object.keys(languagesRes.data));
 
         const commitRes = await octokit.repos.getBranch({
-          owner: "nikhil-chourasia",
-          repo: "HackArena",
+          owner,
+          repo,
           branch,
         });
-
         const treeSha = commitRes.data.commit.commit.tree.sha;
 
         const treeRes = await octokit.git.getTree({
-          owner: "nikhil-chourasia",
-          repo: "HackArena",
+          owner,
+          repo,
           tree_sha: treeSha,
           recursive: "true",
         });
@@ -97,23 +106,39 @@ function RepoExplorer({ onFileSelect }) {
         setRepoTree(treeRes.data.tree);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching repository tree:", error);
+        console.error("Error fetching repository data:", error);
         setLoading(false);
       }
     };
-    fetchRepoTree();
-  }, []); // <-- add dependency array
+    fetchRepoData();
+  }, [owner, repo]);
 
   if (loading)
     return <div className="text-white">Loading File Structure...</div>;
 
   return (
-    <div className="text-white explorer-container">
-      <h2 className="text-lg font-semibold mb-2 explorer-heading">
-        Repository Structure
-      </h2>
-      <Tree data={buildTree(repoTree)} onFileClick={onFileSelect} />
-    </div>
+    <>
+      <div className="text-white explorer-container">
+        <h2 className="text-lg font-semibold mb-2 explorer-heading">
+          Repository Structure
+        </h2>
+        <Tree data={buildTree(repoTree)} onFileClick={onFileSelect} />
+      </div>
+      <div>
+        <h3 className="text-white explorer-container">Contributors:</h3>
+        <ul>
+          {contributors.map((c) => (
+            <li key={c.id}>{c.login}</li>
+          ))}
+        </ul>
+        <h3>Languages:</h3>
+        <ul>
+          {languages.map((lang) => (
+            <li key={lang}>{lang}</li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
 
