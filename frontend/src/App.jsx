@@ -10,9 +10,14 @@ import TestUserProfile from "./components/Test/test.jsx";
 import DisplayRepos from "./components/Test/RepoFetch.jsx";
 import CodeWindow from "./components/pages/CodeWindow.jsx";
 import { AuthCallback } from "./components/callbacks/authCallback.jsx";
+import Accordion from "./components/Test/Accordion.jsx";
+import HackathonForms from "./components/pages/HackathonForms.jsx";
+import Navbar from "./components/pages/Navbar.jsx";
 
 function App() {
   return (
+  <>
+    <Navbar />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
@@ -23,8 +28,11 @@ function App() {
       <Route path="/conferences" element={<Conferences />} />
       <Route path="/code" element={<CodeWindow />} />
       <Route path="/test" element={<TestUserProfile />} />
+      <Route path="/test/accordion" element={<Accordion />} />
+      <Route path="/test/form" element={<HackathonForms />} />
       <Route path="/Repo" element={<DisplayRepos />} />
     </Routes>
+  </>
   );
 }
 

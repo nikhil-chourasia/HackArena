@@ -9,6 +9,7 @@ function Home() {
   };
 
   return (
+    <>
     <div className="home-wrapper">
       <main className="flex items-center justify-center h-[80vh] w-full space-x-0">
         <div className="content-container-1 flex flex-col justify-center text-right">
@@ -55,6 +56,7 @@ function Home() {
       </main>
       <main className="h-[90vh] w-full mt-[20vh]"></main>
     </div>
+    </>
   );
 }
 
