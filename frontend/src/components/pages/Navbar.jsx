@@ -50,13 +50,16 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <a
-              href="http://localhost:3001/auth/github"
-              className="px-4 py-2 rounded-lg text-base transition-colors duration-200 text-white bg-green-700 hover:bg-green-800"
+            <Link
+              to="/host"
+              className={`px-4 py-2 rounded-lg text-base transition-colors duration-200 ${isActiveLink(
+                "/host"
+              )} hover:bg-white/10`}
             >
-              Login with GitHub
-            </a>
+              Host Hackathon
+            </Link>
           </li>
+         
         </ul>
       </div>
     </nav>
