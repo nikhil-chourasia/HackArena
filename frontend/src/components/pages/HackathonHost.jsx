@@ -68,7 +68,9 @@ const HackathonHost = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Form submitted"); // Add this line
     setShowPreview(true);
+    console.log("showing preview", form); // Add this line to check the form data
   };
 
   const handleConfirm = () => {
@@ -119,7 +121,7 @@ const HackathonHost = () => {
             type="file"
             name="coverImage"
             accept="image/*"
-            onCanPlay={handleChange}
+            onChange={handleChange}
           />
         </div>
 
@@ -135,7 +137,7 @@ const HackathonHost = () => {
           <input
             type="datetime-local"
             name="endDate"
-            value={form.endDateDate}
+            value={form.endDate}
             onChange={handleChange}
             required
           />
@@ -169,7 +171,7 @@ const HackathonHost = () => {
                 checked={form.participationType === "Team"}
                 onChange={handleChange}
               />{" "}
-              Individual
+              Team
             </label>
           </div>
           <input
@@ -200,7 +202,7 @@ const HackathonHost = () => {
 
           <input
             type="text"
-            name="organizerName"
+            name="OrganizerName"
             placeholder="Organizer Name"
             value={form.OrganizerName}
             onChange={handleChange}
@@ -317,14 +319,14 @@ const HackathonHost = () => {
             type="file"
             name="problemStatement"
             accept=".pdf, .doc"
-            onChange={handleSubmit}
+            onChange={handleChange}
           />
           <input
             type="text"
             name="submissionFormat"
             placeholder="Submission formate (eg, Github link, pdf, video)"
             value={form.submissionFormat}
-            onChange={handleSubmit}
+            onChange={handleChange}
           />
 
           <div>
@@ -365,7 +367,7 @@ const HackathonHost = () => {
         <div>
           <div>
             <h3>Preview Hackathon</h3>
-            <pre>{JSON.stringify(form, null, 2)}</pre>
+            <HackathonCard hackathon={form} />
             <div>
               <button onClick={() => setShowPreview(false)}>Edit</button>
               <button onClick={handleConfirm}>Confirm and Create</button>
